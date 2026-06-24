@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PARAMETER — รีวิวเจลาโต้คลาสสิกแห่งสยามพารากอน</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Itim&display=swap" rel="stylesheet" />
+
+  <style>
+    /* === TOKENS === */
+    :root {
+      --orange:    #E8531A;
+      --orange-lt: #F4784A;
+      --cream:     #FDF6EE;
+      --beige:     #F0E4D4;
+      --brown:     #2C1A0E;
+      --brown-lt:  #6B3F22;
+      --white:     #FFFFFF;
+      --shadow:    0 4px 24px rgba(44,26,14,.10);
+    }
+
+    /* === RESET === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Itim', sans-serif;
+      background: var(--cream);
+      color: var(--brown);
+      line-height: 1.7;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* === HEADER === */
+    header {
+      background: var(--brown);
+      color: var(--cream);
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 1.5rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 30%, #6B3F2244 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .header-eyebrow {
+      font-family: 'Sarabun', sans-serif;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--orange-lt);
+      margin-bottom: 1.2rem;
+    }
+    .header-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 10vw, 6.5rem);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -.02em;
+      margin-bottom: .5rem;
+    }
+    .header-title span { color: var(--orange); }
+    .header-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 3vw, 1.4rem);
+      color: #C8A98A;
+      margin-bottom: 2.5rem;
+    }
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--orange);
+      color: var(--white);
+      font-size: .8rem;
+      font-weight: 600;
+      padding: .5rem 1.25rem;
+      border-radius: 100px;
+    }
+    /* wave divider */
+    .wave {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+    }
+    .wave svg { display: block; width: 100%; height: 80px; }
+
+    /* === SECTION SHARED === */
+    section { padding: 5rem 1.5rem; }
+    .container { max-width: 760px; margin: 0 auto; }
+    .section-label {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: .75rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 5vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+    .section-body {
+      font-size: 1.05rem;
+      color: var(--brown-lt);
+      line-height: 1.85;
+    }
+
+    /* === STORY === */
+    #story { background: var(--cream); }
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    .story-card {
+      background: var(--beige);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+    .story-card .icon { font-size: 2rem; margin-bottom: .75rem; }
+    .story-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: .4rem;
+    }
+    .story-card p { font-size: .9rem; color: var(--brown-lt); line-height: 1.6; }
+    @media (max-width: 500px) { .story-grid { grid-template-columns: 1fr; } }
+
+    /* === WAVE ORANGE === */
+    .wave-section {
+      background: var(--orange);
+      padding: 0;
+      line-height: 0;
+    }
+    .wave-section svg { display: block; width: 100%; }
+
+    /* === FLAVORS === */
+    #flavors { background: var(--brown); color: var(--cream); }
+    #flavors .section-title { color: var(--cream); }
+    #flavors .section-label { color: var(--orange-lt); }
+    .flavor-cards {
+      display: grid;
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+    .flavor-card {
+      background: #3D2412;
+      border-radius: 20px;
+      padding: 1.75rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+      border: 2px solid transparent;
+    }
+    .flavor-card:hover { background: #4F3019; transform: translateY(-2px); }
+    .flavor-card.active { border-color: var(--orange); }
+    .flavor-emoji { font-size: 2.5rem; flex-shrink: 0; }
+    .flavor-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: .3rem;
+    }
+    .flavor-info .price {
+      font-size: .85rem;
+      color: var(--orange-lt);
+      font-weight: 600;
+      margin-bottom: .5rem;
+    }
+    .flavor-info p { font-size: .9rem; color: #C8A98A; line-height: 1.6; }
+    .stars { color: var(--orange); font-size: 1rem; margin-top: .5rem; }
+    /* detail drawer */
+    .flavor-detail {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .4s ease;
+      font-size: .9rem;
+      color: #C8A98A;
+      line-height: 1.6;
+    }
+    .flavor-detail.open { max-height: 200px; }
+    .flavor-detail p { padding-top: .75rem; }
+
+    /* === VISIT === */
+    #visit { background: var(--beige); }
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    .info-box {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+    .info-box .icon { font-size: 1.75rem; margin-bottom: .75rem; }
+    .info-box h3 { font-size: .75rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--orange); margin-bottom: .3rem; }
+    .info-box p { font-size: .95rem; color: var(--brown-lt); line-height: 1.5; }
+
+    /* === VOTE === */
+    #vote { background: var(--cream); }
+    .vote-box {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .vote-box p { font-size: 1.05rem; color: var(--brown-lt); margin-bottom: 1.75rem; }
+    .vote-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .vote-btn {
+      background: var(--beige);
+      border: 2px solid transparent;
+      border-radius: 100px;
+      padding: .65rem 1.4rem;
+      font-family: 'Itim', sans-serif;
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--brown);
+      cursor: pointer;
+      transition: all .2s;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .vote-btn:hover { background: var(--orange); color: var(--white); border-color: var(--orange); }
+    .vote-btn:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
+    .vote-result {
+      font-size: .9rem;
+      color: var(--brown-lt);
+      min-height: 3rem;
+    }
+    .vote-bars { margin-top: 1rem; }
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: .6rem;
+      font-size: .85rem;
+    }
+    .bar-label { width: 130px; text-align: right; color: var(--brown-lt); }
+    .bar-track {
+      flex: 1;
+      background: var(--beige);
+      border-radius: 100px;
+      height: 10px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      background: var(--orange);
+      border-radius: 100px;
+      width: 0%;
+      transition: width .5s ease;
+    }
+    .bar-count { width: 30px; color: var(--brown); font-weight: 600; }
+    .vote-msg {
+      margin-top: 1.25rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--orange);
+      min-height: 1.5rem;
+    }
+
+    /* === FOOTER === */
+    footer {
+      background: var(--brown);
+      color: #C8A98A;
+      text-align: center;
+      padding: 3rem 1.5rem;
+      font-size: .85rem;
+      line-height: 1.8;
+    }
+    footer strong { color: var(--cream); }
+
+    /* === SCROLL REVEAL === */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* === REDUCED MOTION === */
+    @media (prefers-reduced-motion: reduce) {
+      *, .reveal { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <p class="header-eyebrow">รีวิวโดย ชวัลกร สุขไชยะ · ม.6/7</p>
+  <h1 class="header-title">PARA<span>M</span>ETER</h1>
+  <p class="header-sub">Classic Refined Gelato</p>
+  <div class="header-badge">🍨 กระแสแรง · สยามพารากอน · 2025</div>
+  <div class="wave">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#FDF6EE"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ===== STORY ===== -->
+<section id="story">
+  <div class="container">
+    <p class="section-label reveal">เรื่องราวของร้าน</p>
+    <h2 class="section-title reveal">5 ปีที่อิตาลี<br/>เพื่อถ้วยเดียวในไทย</h2>
+    <p class="section-body reveal">
+      PARAMETER ก่อตั้งโดย <strong>ดีเจกฤษณ์ ศรีภูมิเศรษฐ์</strong> ที่ใช้เวลากว่า 5 ปีเดินทางไปเรียนรู้การทำเจลาโต้ที่อิตาลีอย่างลึกซึ้ง จนกลับมาเปิดร้านที่ควบคุมทุกตัวแปรตั้งแต่วัตถุดิบ สูตร ไปจนถึงวิธีเสิร์ฟ — ทุกถ้วยจึงออกมาเหมือนกันทุกครั้ง
+    </p>
+
+    <div class="story-grid">
+      <div class="story-card reveal">
+        <div class="icon"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnDwITXmNQKouoR-He8tfEEEioY_oAlRLAfaA40mXd5MmQ1pYXhm1hHvoO&s=10" alt="เครื่องทำเจลาโต้" /></div>
+        <h3>เครื่องทำเจลาโต้ 100 ปี</h3>
+        <p>นำเข้าจากอิตาลี สร้างเนื้อสัมผัสที่ไม่อัดอากาศ เนียนและแน่นในแบบที่เครื่องสมัยใหม่ทำไม่ได้</p>
+      </div>
+      <div class="story-card reveal">
+        <div class="icon"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzFdQWVieQFUzAcomiIB-ESyDwoV4llXy-815xsrmlNJV_X22rTm2f2IM&s=10" alt="วัตถุดิบ 100% Pure" /></div>
+        <h3>วัตถุดิบ 100% Pure</h3>
+        <p>Raw Ingredient → Pure Paste → Gelato ทุกรสมีสูตรเฉพาะตัว ไม่ใช้ base เดียวกัน</p>
+      </div>
+      <div class="story-card reveal">
+        <div class="icon"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTNv7heMRH7JFFrjsOYOCvtnq6U0Auk53cGkGVQJvHD4wQd-M1oPWPNSo&s=10" alt="แก้ว + ช้อน Food Grade" /></div>
+        <h3>แก้ว + ช้อน Food Grade</h3>
+        <p>ช้อนสแตนเลส 304 ไม่มีกลิ่นโลหะ แก้วแช่เย็นมาพร้อม เอากลับบ้านได้เลย</p>
+      </div>
+      <div class="story-card reveal">
+        <div class="icon"><img src="https://tongpaii.me/wp-content/uploads/2026/03/PARAMETER%E2%80%93Classic-Refined-Gelato-5.jpg" alt="Classic Refined" /></div>
+        <h3>Classic Refined</h3>
+        <p>เจลาโต้แบบดั้งเดิมที่หาได้ยากแม้แต่ในอิตาลี ไม่หวานจัด รสชาติสะอาดและธรรมชาติ</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- wave orange -->
+<div class="wave-section">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 C360,60 1080,0 1440,30 L1440,0 Z" fill="#FDF6EE"/>
+  </svg>
+</div>
+
+<!-- ===== FLAVORS ===== -->
+<section id="flavors">
+  <div class="container">
+    <p class="section-label reveal">รีวิวรสชาติ</p>
+    <h2 class="section-title reveal">3 รสที่ต้องลอง</h2>
+    <p class="section-body reveal" style="color:#C8A98A;">กดที่การ์ดเพื่อดูรายละเอียดเพิ่มเติม</p>
+
+    <div class="flavor-cards" id="flavorCards">
+
+      <div class="flavor-card reveal" data-flavor="pistachio" onclick="toggleFlavor(this)">
+        <div class="icon"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR78JsC3xn10aSyQ2Xnzo8Ac-MAgtgI1LUi2Y4CymyC7gKGmVgTRx4v3yE&s=10" alt="Smoked Peanut Chiba Handachi" /></div>
+        <div class="flavor-info">
+          <h3>Smoked Peanut Chiba Handachi</h3>
+          <div class="price">฿ 259</div>
+          <p>ถั่วลิสงรมควันจาก Chiba ญี่ปุ่น กลิ่นหอมเข้มข้น มันนุ่ม มีถั่วคั่วโรยหน้า</p>
+          <div class="stars">★★★★★</div>
+          <div class="flavor-detail" id="detail-pistachio">
+            <p>ใช้ถั่วลิสง Handachi จาก Chiba ญี่ปุ่น ผ่านกระบวนการรมควันและคั่วสดใหม่ทุกวัน เนื้อเจลาโต้ครีมมี่หอมถั่วลึก โรยหน้าด้วยถั่วทั้งเม็ด — <strong>รสแนะนำอันดับ 1</strong></p>
+        </div>
+      </div>
+
+      <div class="flavor-card reveal" data-flavor="matcha" onclick="toggleFlavor(this)">
+        <div class="icon"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn42A6u33n2mteokDsUb8xmDjeY_nHNIfMfyrw0Z-uRO59s_v1vvuBM3U&s=10" alt="Tsujiki Shizen Pistacchio di Bronte DOP" /></div>
+        <div class="flavor-info">
+          <h3>Tsujiki Shizen Pistacchio di Bronte DOP</h3>
+          <div class="price">฿ 419</div>
+          <p>มัทฉะ Uji ผสมพิสตาชิโอ้ Bronte DOP รสเข้มข้นสองชั้น หอมชาและถั่วในคำเดียว</p>
+          <div class="stars">★★★★★</div>
+          <div class="flavor-detail" id="detail-matcha">
+            <p>จับคู่มัทฉะ Tsujiki Shizen จาก Uji เกียวโต กับพิสตาชิโอ้เกรด DOP จากซิซิลี โรยหน้าด้วยพิสตาชิโอ้ทั้งเม็ด รสซับซ้อนที่สุดในเมนู — <strong>Limited Edition</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flavor-card reveal" data-flavor="macadamia" onclick="toggleFlavor(this)">
+        <div class="icon"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZhDPCxDgXGeT7r7Y2qnKg-5MTlxTu4bpVVCEoW-uumA&s" alt="Domori Criollo Nocciola del Piemonte IGP" /></div>
+        <div class="flavor-info">
+          <h3>Domori Criollo Nocciola del Piemonte IGP</h3>
+          <div class="price">฿ 259</div>
+          <p>ช็อกโกแลต Domori Criollo ผสมเฮเซลนัท Piemonte รสเข้มหวานละมุน</p>
+          <div class="stars">★★★★☆</div>
+          <div class="flavor-detail" id="detail-macadamia">
+            <p>ใช้ช็อกโกแลต Criollo เกรดพรีเมียมจาก Domori อิตาลี จับคู่กับเฮเซลนัท IGP จาก Piemonte รสชาติเหมือนกิน Nutella เวอร์ชันหรูหรา — <strong>Chocolate Hazelnut No.2</strong></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- wave cream -->
+<div style="background:#2C1A0E; line-height:0;">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C360,0 1080,60 1440,20 L1440,60 L0,60 Z" fill="#F0E4D4"/>
+  </svg>
+</div>
+
+<!-- ===== VISIT ===== -->
+<section id="visit" style="background:var(--beige);">
+  <div class="container">
+    <p class="section-label reveal">ข้อมูลเพื่อการไปเยือน</p>
+    <h2 class="section-title reveal">ก่อนไปต้องรู้</h2>
+
+    <div class="info-grid">
+      <div class="info-box reveal">
+        <div class="icon">📍</div>
+        <h3>ที่ตั้ง</h3>
+        <p>สยามพารากอน ชั้น G โซน Gourmet Eats (ติดกับร้าน naisnow)</p>
+      </div>
+      <div class="info-box reveal">
+        <div class="icon">🕙</div>
+        <h3>เวลาเปิด</h3>
+        <p>ทุกวัน<br/>10:00 – 21:00 น.</p>
+      </div>
+      <div class="info-box reveal">
+        <div class="icon">💳</div>
+        <h3>การชำระเงิน</h3>
+        <p>บัตรเครดิตเมื่อยอดเกิน 500 บาท<br/>แนะนำเตรียมเงินสดมาด้วย</p>
+      </div>
+      <div class="info-box reveal">
+        <div class="icon">⏱️</div>
+        <h3>เวลารอคิว</h3>
+        <p>ช่วงเปิดใหม่รอ ~30 นาที แนะนำไปช่วง 15:00–17:00 คิวสั้นกว่า</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VOTE ===== -->
+<section id="vote">
+  <div class="container">
+    <p class="section-label reveal">Interactive</p>
+    <h2 class="section-title reveal">ถ้าจะลองวันนี้<br/>คุณอยากกินรสไหน?</h2>
+
+    <div class="vote-box reveal">
+      <p>โหวตเพื่อดูว่าคนส่วนใหญ่ชอบรสอะไร — กดได้เลยเพียง 1 รส</p>
+      <div class="vote-buttons">
+        <button class="vote-btn" onclick="castVote('peanut')" id="vbtn-peanut">🥜 Smoked Peanut</button>
+        <button class="vote-btn" onclick="castVote('matcha')" id="vbtn-matcha">🍵 Matcha Pistachio</button>
+        <button class="vote-btn" onclick="castVote('hazelnut')" id="vbtn-hazelnut">🍫 Hazelnut Choco</button>
+      </div>
+
+      <div class="vote-result" id="voteResult" style="display:none;">
+        <div class="vote-bars" id="voteBars">
+          <div class="bar-row">
+            <span class="bar-label">🥜 Smoked Peanut</span>
+            <div class="bar-track"><div class="bar-fill" id="bar-peanut"></div></div>
+            <span class="bar-count" id="count-peanut">0</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">🍵 Matcha Pistachio</span>
+            <div class="bar-track"><div class="bar-fill" id="bar-matcha"></div></div>
+            <span class="bar-count" id="count-matcha">0</span>
+          </div>
+          <div class="bar-row">
+            <span class="bar-label">🍫 Hazelnut Choco</span>
+            <div class="bar-track"><div class="bar-fill" id="bar-hazelnut"></div></div>
+            <span class="bar-count" id="count-hazelnut">0</span>
+          </div>
+        </div>
+        <p class="vote-msg" id="voteMsg"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p style="font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--cream); margin-bottom:.75rem;">PARAMETER</p>
+  <p><strong>จัดทำโดย:</strong> ชวัลกร สุขไชยะ · ม.6/7 · เลขที่ 12</p>
+  <p style="margin-top:.5rem;"><strong>แหล่งข้อมูล:</strong> Wongnai, Lemon8, Instagram @parameterthailand</p>
+  <p style="margin-top:.5rem;">ข้อมูลราคาและเวลาเปิดทำการอาจเปลี่ยนแปลง กรุณาตรวจสอบกับทางร้านโดยตรง</p>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+  // --- 1. SCROLL REVEAL ---
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  // --- 2. FLAVOR TOGGLE (แสดง/ซ่อนรายละเอียด) ---
+  function toggleFlavor(card) {
+    const flavorId = card.dataset.flavor;
+    const detail = document.getElementById('detail-' + flavorId);
+    const isOpen = detail.classList.contains('open');
+
+    // ปิดทุกอัน
+    document.querySelectorAll('.flavor-detail').forEach(d => d.classList.remove('open'));
+    document.querySelectorAll('.flavor-card').forEach(c => c.classList.remove('active'));
+
+    // ถ้ายังไม่เปิด → เปิด
+    if (!isOpen) {
+      detail.classList.add('open');
+      card.classList.add('active');
+    }
+  }
+
+  // --- 3. VOTE SYSTEM ---
+  const votes = { peanut: 0, matcha: 0, hazelnut: 0 };
+  let voted = false;
+
+  const messages = {
+    peanut:   '🥜 Smoked Peanut — รสซิกเนเจอร์ที่ขายดีที่สุด!',
+    matcha:   '🍵 Matcha Pistachio — คอมโบสุดพรีเมียม Limited Edition!',
+    hazelnut: '🍫 Hazelnut Choco — หอมช็อกโกแลตแบบอิตาเลียนแท้ๆ!'
+  };
+
+  function castVote(flavor) {
+    if (voted) return;
+    voted = true;
+    votes[flavor]++;
+
+    // ไฮไลต์ปุ่มที่เลือก
+    document.getElementById('vbtn-' + flavor).style.background = 'var(--orange)';
+    document.getElementById('vbtn-' + flavor).style.color = 'white';
+
+    // ปิดการกดซ้ำ
+    document.querySelectorAll('.vote-btn').forEach(b => {
+      b.disabled = true;
+      b.style.opacity = b.id === 'vbtn-' + flavor ? '1' : '0.5';
+      b.style.cursor = 'default';
+    });
+
+    // แสดงผล
+    document.getElementById('voteResult').style.display = 'block';
+    updateBars();
+    document.getElementById('voteMsg').textContent = messages[flavor];
+  }
+
+  function updateBars() {
+    const total = Object.values(votes).reduce((a, b) => a + b, 0) || 1;
+    ['peanut', 'matcha', 'hazelnut'].forEach(f => {
+      const pct = Math.round((votes[f] / total) * 100);
+      document.getElementById('bar-' + f).style.width = pct + '%';
+      document.getElementById('count-' + f).textContent = votes[f];
+    });
+  }
+</script>
+
+</body>
+</html>
